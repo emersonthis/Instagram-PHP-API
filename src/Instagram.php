@@ -194,12 +194,12 @@ class Instagram
      *
      * @return mixed
      */
-    public function getUserMedia($id = 'self', $limit = 0)
+    public function getUserMedia($id = 'self', $params = array())
     {
-        $params = array();
 
-        if ($limit > 0) {
-            $params['count'] = $limit;
+        # backwards compatible with old signautre, in which 2nd param was $limit
+        if ($params && !is_array($params) ){
+            $params['count'] = $params;
         }
 
         return $this->_makeCall('users/' . $id . '/media/recent', strlen($this->getAccessToken()), $params);
@@ -378,12 +378,12 @@ class Instagram
      *
      * @return mixed
      */
-    public function getTagMedia($name, $limit = 0)
+    public function getTagMedia($name, $params = array())
     {
-        $params = array();
 
-        if ($limit > 0) {
-            $params['count'] = $limit;
+        # backwards compatible with old signautre, in which 2nd param was $limit
+        if ($params && !is_array($params)) {
+            $params['count'] = $params;
         }
 
         return $this->_makeCall('tags/' . $name . '/media/recent', false, $params);
